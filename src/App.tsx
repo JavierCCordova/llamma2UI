@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+import { AuthPage } from './features/auth/AuthPage'
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -32,4 +34,8 @@ function App() {
   )
 }
 
-export default App
+//export default App
+
+export default function App2() {
+  return <AuthPage />
+}
