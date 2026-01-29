@@ -12,9 +12,7 @@ export const authService = {
 
         const requestOptions  =   {
             method : "POST",
-            body: formData,
-            //redirect: "follow",
-            //headers: { 'content-type': 'application/json' }
+            body: formData, 
         }
         
         const res = await fetch("http://localhost:8000/auth/login", requestOptions)
@@ -26,6 +24,5 @@ export const authService = {
         console.log(result);
 
         return result // acceso
- 
     }
 }
