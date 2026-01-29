@@ -1,73 +1,121 @@
-# React + TypeScript + Vite
+#llama2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## instalación del entorno y dependecias.
 
-Currently, two official plugins are available:
+-   revisamos node.js, verificacion node -v
+sudo apt update
+sudo apt install -y nodejs npm 
+npm install bootstrap
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- revision de la instalacion
 
-## React Compiler
+npm -v
+node -v
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+si apt te instala versiones antiguas, install de esta manera:
 
-## Expanding the ESLint configuration
+curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+nvm install 20
+nvm use 20
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# creacion de entorno de trabajo
+npm create vite@latest llamma2Ux
+npm run dev -->run server.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Arquitectura de carpetas(Arch):
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+src/
+├── app/
+│   ├── App.tsx
+│   └── router.tsx
+│
+├── features/
+│
+├── shared/
+│   └── services/
+│       └── httpClient.ts
+│
+└── main.tsx
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## patron feature-based + MVVM
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+cada caso de uso es una carpeta.
+
+features/auth/
+features/users/
+features/dashboard/
+
+## MVVM read adapt
+
+- controller -> page(View)
+- Use Case  -> ViewModel(hook)
+- Repository -> Service
+- DTP -> types
+
+# responsibilidades.
+-   View(Page.tsx)
+        solo JSX
+        eventos(onclick, onsubmit)
+        No logica
+-   ViewModel(usexViewModel.ts)
+        estado
+        llamado a servicos
+        vlaidaciones
+        logica
+-   service(x.service.ts)
+        http
+        API
+        nada de react
+    
+- Feature Based ejemplo:
+        features/auth/
+        ├── AuthPage.tsx           ← View (pantalla)
+        ├── useAuthViewModel.ts    ← ViewModel (lógica)
+        ├── auth.service.ts        ← Service (API / backend)
+        ├── auth.types.ts          ← DTOs (opcional)
+        └── components/
+            └── AuthForm.tsx       ← UI pura
+
+    AuthPage.tsx: pantalla Controller delgado, renderiza componentes, manejo de eventos, llama ViewModel, orquestador nada mas.
+                No hace: logica, llamadas http, manejo jwt.
+
+    components/AuthForm.tsx: HTML + eventos.
+                No hace: es ques JWT, no back, que pasa al hacer login.
+
+    useAuthViewModel.ts: viewModel en react: un custom hook(useX)
+                Equivalente: Use Case/ Applicacion Service.
+                recibe datos del formulario, valida, llama al service, maneja respuesta, guarda token.
+
+    auth.service.ts:    repository o/ adapter Http, llamar al back o resolver datos.
+                no hace:  no guarda token, no conoce react.
+    
+     Con MVVM:
+        Capa	Responsabilidad
+        View	UI
+        ViewModel	Lógica
+        Service
+
+    JWT: dónde vive y cómo fluye
+        Flujo completo
+        AuthForm
+          ↓
+        AuthPage
+          ↓
+        useAuthViewModel
+          ↓
+        authService
+          ↓
+        Backend
+        
+        
+        Respuesta:
+        
+        JWT
+          ↑
+        ViewModel lo guarda
+
+## Arquitectura 
+feature-Based + MVVM ligero.

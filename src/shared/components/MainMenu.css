@@ -1,0 +1,24 @@
+:root {
+  --bs-primary: #0d47a1; /* Azul corporativo profundo */
+  --bs-body-bg: #f8f9fa; /* Fondo gris casi blanco para resaltar cards */
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+.nav-link {
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.nav-link:hover {
+  color: var(--bs-primary) !important;
+}
+
+/* Efecto para las filas de tu tabla de clientes */
+.table-hover tbody tr:hover {
+  background-color: rgba(13, 71, 161, 0.05);
+  transition: 0.2s;
+}

@@ -12,7 +12,7 @@ export function useAuthViewModel() {
   const login = async (data: LoginData) => {
     const response = await authService.login(data)
 
-    const token = response.access_token
+    const token = response.accessToken
     localStorage.setItem('token', token)
 
     navigate('/')   
