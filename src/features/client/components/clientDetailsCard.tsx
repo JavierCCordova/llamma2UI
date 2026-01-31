@@ -1,17 +1,18 @@
 import { ClientTable } from './clientDetailTable'
 
-type Client = {
-    id:         string
-    client:     string
-    ruc:        string
-    telefono:   string
+type Record = {
+    date_record:    string
+    date_agent:     string
+    description:    string
+    type_accion:    string
+    response_action: string
 }
 
 type Props = {
-    clients : Client[] 
+    records : Record[] 
 }
 
-export function ClienteDetailsCard({clients}: Props){
+export function ClienteDetailsCard({records}: Props){
 
     return (
             <div className="card border-0 shadow-sm rounded-4 overflow-hidden  mb-2">
@@ -22,7 +23,7 @@ export function ClienteDetailsCard({clients}: Props){
                     Detalle de gestiones
                     </h6>
 
-                    <ClientTable clients={clients} />
+                    <ClientTable Records={records} />
 
                 </div>
             </div>
