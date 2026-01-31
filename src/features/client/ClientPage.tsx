@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useClientViewModel } from './useClientViewModel'
+import { useRecordViewModel } from './useRecordViewModel'
 import { ClienteSelect } from './components/ClientSelect'
 import { ClientSummaryCard } from './components/clientSummaryCard'
 import { ClienteDetailsCard } from './components/clientDetailsCard'
@@ -7,11 +8,14 @@ import { ClienteDetailsCard } from './components/clientDetailsCard'
 export function ClientPage() {
 
   const { clients, loading } = useClientViewModel()
-  const [selectedClientId, setSelectedClientId] = useState<string>('')
+  const [ selectedClientId, setSelectedClientId ] = useState<string>('')
 
+  // información en memoria para saber donde me encuentro.
   const selectdClient = clients.find(
     (c) => c.id === selectedClientId
   ) 
+ 
+  const { record, loading2 } = useRecordViewModel(selectedClientId)
 
   if (loading) {
     return (
@@ -20,6 +24,7 @@ export function ClientPage() {
       </div>
     )
   }
+
 
   return (
     
@@ -39,7 +44,7 @@ export function ClientPage() {
         />
 
         < ClienteDetailsCard
-          clients={ clients }
+              records={ record }
         />
 
     </div>
