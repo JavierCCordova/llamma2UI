@@ -1,3 +1,5 @@
+import { ClientFormRecord } from './clientFormRecord'
+import { useState } from "react";
 
 interface ClientSelectProps {
   clients: { id: string; client: string }[]
@@ -7,26 +9,39 @@ interface ClientSelectProps {
 
 export function ClienteSelect( { clients, value, onChange }: ClientSelectProps ){
 
+    const [selectedClientId, setSelectedClientId] = useState("");
+    const selectedClient = clients.find(c => c.id === selectedClientId);
+
     return ( 
-        
-      <div className="mb-4">
+      <div className="row align-items-end g-3">
+
+      {/* Select */}
+      <div className="col-md-8">
         <label className="form-label fw-bold text-dark mb-2">
           <i className="bi bi-person-badge me-2 text-primary"></i>
           Seleccionar Cliente:
         </label>
-        
-        <select
-        className="form-select form-select-lg shadow-sm border-0 rounded-3 px-4"
-        value={value}
-        onChange={(e) => onChange(e.target.value)} >
 
-         <option value="">Seleccione un cliente...</option>
+       <select
+          className="form-select form-select-lg"
+          value={selectedClientId}
+          onChange={(e) => setSelectedClientId(e.target.value)}
+        >
+          <option value="">Seleccione un cliente...</option>
           {clients.map((c) => (
             <option key={c.id} value={c.id}>
-              {c.client}  
+              {c.client}
             </option>
           ))}
         </select>
       </div>
-    )
+ 
+      <div className="col-md-4 d-flex">
+        <div className="w-100">
+          <ClientFormRecord clientInput={selectedClient}/>
+        </div>
+      </div>
+
+    </div>
+    );
 }
