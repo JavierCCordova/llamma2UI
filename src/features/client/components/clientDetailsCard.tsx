@@ -1,11 +1,11 @@
 import { ClientTable } from './clientDetailTable'
 
 type Record = {
-    date_record:    string
-    date_agent:     string
+    dateRecord:    string
+    dateAgent:     string
     description:    string
-    type_accion:    string
-    response_action: string
+    typeAccion:    string
+    responseAction: string
 }
 
 type Props = {

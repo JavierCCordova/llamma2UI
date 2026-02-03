@@ -20,7 +20,7 @@ export const clientService ={
 
         const res = await fetch("http://localhost:8000/crm/getclient", requestOptions)
 
-        if(!res){
+        if(!res.ok){
                 throw new Error(" Problemas obtener Client");
         }
         const result    =   await res.json();
@@ -47,6 +47,28 @@ export const clientService ={
         }
         const result =  await res.json();
         return result.Data
+    },
+
+
+    async insertRecord(record: any){
+        const token =   localStorage.getItem('token')
+        if(!token){
+            throw new Error("No auth token")
+        }
+        const requestOptions = {
+            method: 'PUT',
+            headers : {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                        },
+            body :  JSON.stringify(record)
+            }
+        const res = await fetch('http://localhost:8000/crm/SaveRecord',requestOptions)
+        if (!res.ok){
+            throw new Error("Problemas a guardar");
+        }
+        const response = await res.json()
+        return response
     }
-} 
-//data:   {'idRecord': idRecord}
+}  

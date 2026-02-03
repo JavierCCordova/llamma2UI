@@ -9,13 +9,13 @@ export function ClientPage() {
 
   const { clients, loading } = useClientViewModel()
   const [ selectedClientId, setSelectedClientId ] = useState<string>('')
-
+  
   // información en memoria para saber donde me encuentro.
   const selectdClient = clients.find(
     (c) => c.id === selectedClientId
   ) 
- 
-  const { record, loading2 } = useRecordViewModel(selectedClientId)
+   
+  const { record, loading2, createRecord } = useRecordViewModel(selectedClientId)
 
   if (loading) {
     return (
@@ -36,6 +36,7 @@ export function ClientPage() {
 
             clients = { clients }
             value   = { selectedClientId }
+            createRecord  = {createRecord}
             onChange= { setSelectedClientId }
         />
 

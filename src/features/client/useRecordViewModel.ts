@@ -15,20 +15,30 @@ export function useRecordViewModel( clientId : string){
     const [ record, setRecord ]     =   useState<Record[]>([])
     const [ loading2, setLoading]    =   useState(true)
 
+    const fetchRecords = async ()=> {
+        if(!clientId){
+            setRecord([])
+            return
+        }
+        setLoading(true)
+
+        try{
+            const data = await clientService.getRecords(clientId)
+            setRecord(data)
+        }finally{
+            setLoading(false)
+        }       
+    }
+
+    const createRecord = async (payload: any)=> {
+        await clientService.insertRecord(payload)
+        await fetchRecords()
+    }
+
     useEffect(() => {
+            fetchRecords()
+        },[clientId]
+    )
 
-                if (!clientId) {
-                                setRecord([])
-                                return
-                            }
-                
-                setLoading(true)
-                
-                clientService.getRecords(clientId).then(
-                    (data)  =>  setRecord(data)
-                    ).finally( () => setLoading(false)
-                            )
-            }, [clientId] )
-
-    return {  record, loading2 }
+    return {  record, loading2, createRecord }
 }
