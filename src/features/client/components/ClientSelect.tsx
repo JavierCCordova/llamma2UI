@@ -1,16 +1,15 @@
-import { ClientFormRecord } from './clientFormRecord'
-import { useState } from "react";
+import { ClientFormRecord } from './clientFormRecord';
 
 interface ClientSelectProps {
   clients: { id: string; client: string }[]
   value: string
+  createRecord: ( payload: any) => Promise<void>
   onChange: (clientId: string) => void
 }
 
-export function ClienteSelect( { clients, value, onChange }: ClientSelectProps ){
-
-    const [selectedClientId, setSelectedClientId] = useState("");
-    const selectedClient = clients.find(c => c.id === selectedClientId);
+export function ClienteSelect( { clients, value, createRecord, onChange }: ClientSelectProps ){
+    
+    const selectedClient = clients.find(c => c.id === value);
 
     return ( 
       <div className="row align-items-end g-3">
@@ -24,8 +23,8 @@ export function ClienteSelect( { clients, value, onChange }: ClientSelectProps )
 
        <select
           className="form-select form-select-lg"
-          value={selectedClientId}
-          onChange={(e) => setSelectedClientId(e.target.value)}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
         >
           <option value="">Seleccione un cliente...</option>
           {clients.map((c) => (
@@ -38,7 +37,10 @@ export function ClienteSelect( { clients, value, onChange }: ClientSelectProps )
  
       <div className="col-md-4 d-flex">
         <div className="w-100">
-          <ClientFormRecord clientInput={selectedClient}/>
+          <ClientFormRecord 
+            clientInput={selectedClient}
+            createRecord={createRecord}
+          />
         </div>
       </div>
 

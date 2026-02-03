@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "react"; 
 
 export type FormClient = {
   id: string;
@@ -7,9 +7,10 @@ export type FormClient = {
 
 type Props = {
   clientInput?: FormClient;
+  createRecord: (payload:any) => Promise<void>;
 };
 
-export function ClientFormRecord( { clientInput }:Props ) {
+export function ClientFormRecord( { clientInput,createRecord }:Props ) {
   const [show, setShow] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -29,9 +30,17 @@ export function ClientFormRecord( { clientInput }:Props ) {
         });
       };
     
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(formData);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); 
+    if (!clientInput) {
+          alert("Debe seleccionar un cliente");
+          return;
+        }
+    const payload = {
+      idClient: clientInput.id,
+      ...formData
+    } 
+    await createRecord(payload)
     setShow(false);
   };
 

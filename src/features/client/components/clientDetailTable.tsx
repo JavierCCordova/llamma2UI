@@ -1,9 +1,9 @@
 type Record = {
-    date_record:    string
-    date_agent:     string
+    dateRecord:    string
+    dateAgent:     string
     description:    string
-    type_accion:    string
-    response_action: string
+    typeAccion:    string
+    responseAction: string
 }
 
 
@@ -25,12 +25,12 @@ export function ClientTable({ Records }: Props) {
       </thead>
       <tbody>
         {Records.map((c) => (
-          <tr key={c.type_accion}>
-            <td>{c.date_record}</td>
-            <td>{c.date_agent}</td>
+          <tr key={c.typeAccion}>
+            <td>{c.dateRecord}</td>
+            <td>{c.dateAgent}</td>
             <td>{c.description}</td>
-            <td>{c.type_accion}</td>
-            <td>{c.response_action}</td>
+            <td>{c.typeAccion}</td>
+            <td>{c.responseAction}</td>
           </tr>
         ))}
       </tbody>
