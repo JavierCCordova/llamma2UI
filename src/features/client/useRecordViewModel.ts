@@ -3,6 +3,7 @@ import { use, useEffect, useState } from 'react'
 
 
 type Record = {
+    id:string
     date_record:    string
     date_agent:     string
     description:    string
@@ -35,10 +36,15 @@ export function useRecordViewModel( clientId : string){
         await fetchRecords()
     }
 
+    const deleteRecord = async (id : string)=> {
+        await clientService.deleteRecord(id)
+        await fetchRecords()
+    }
+
     useEffect(() => {
             fetchRecords()
         },[clientId]
     )
 
-    return {  record, loading2, createRecord }
+    return {  record, loading2, createRecord, deleteRecord }
 }

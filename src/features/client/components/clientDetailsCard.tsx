@@ -1,6 +1,7 @@
 import { ClientTable } from './clientDetailTable'
 
 type Record = {
+    id :string
     dateRecord:    string
     dateAgent:     string
     description:    string
@@ -8,11 +9,12 @@ type Record = {
     responseAction: string
 }
 
-type Props = {
+type Props = {    
     records : Record[] 
+    deleteRecord: (id:any) => Promise<void>
 }
 
-export function ClienteDetailsCard({records}: Props){
+export function ClienteDetailsCard({records , deleteRecord}: Props){
 
     return (
             <div className="card border-0 shadow-sm rounded-4 overflow-hidden  mb-2">
@@ -23,7 +25,9 @@ export function ClienteDetailsCard({records}: Props){
                     Detalle de gestiones
                     </h6>
 
-                    <ClientTable Records={records} />
+                    <ClientTable 
+                                Records         =   {records}
+                                deleteRecord    =   {deleteRecord} />
 
                 </div>
             </div>

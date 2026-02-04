@@ -15,8 +15,9 @@ export function ClientPage() {
     (c) => c.id === selectedClientId
   ) 
    
-  const { record, loading2, createRecord } = useRecordViewModel(selectedClientId)
-
+  const { record, loading2, createRecord, deleteRecord } = useRecordViewModel(selectedClientId)
+  console.log("createRecord:", createRecord)
+  
   if (loading) {
     return (
       <div className="d-flex justify-content-center py-5">
@@ -46,6 +47,7 @@ export function ClientPage() {
 
         < ClienteDetailsCard
               records={ record }
+              deleteRecord= {deleteRecord}
         />
 
     </div>
