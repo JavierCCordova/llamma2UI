@@ -15,7 +15,7 @@ export function ClientPage() {
     (c) => c.id === selectedClientId
   ) 
    
-  const { record, loading2, createRecord, deleteRecord } = useRecordViewModel(selectedClientId)
+  const { record, loading2, createRecord, deleteRecord, updateRecord } = useRecordViewModel(selectedClientId)
   console.log("createRecord:", createRecord)
   
   if (loading) {
@@ -46,8 +46,10 @@ export function ClientPage() {
         />
 
         < ClienteDetailsCard
-              records={ record }
-              deleteRecord= {deleteRecord}
+              records       = { record }
+              deleteRecord  = { deleteRecord }
+              updateRecord  = { updateRecord }
+              selectedClientId={selectedClientId}
         />
 
     </div>

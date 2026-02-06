@@ -40,11 +40,16 @@ export function useRecordViewModel( clientId : string){
         await clientService.deleteRecord(id)
         await fetchRecords()
     }
+    
+    const updateRecord = async(record: any ,id: string)=>{
+        await clientService.updateRecord(record, id)
+        await fetchRecords()
+    }
 
     useEffect(() => {
             fetchRecords()
         },[clientId]
     )
 
-    return {  record, loading2, createRecord, deleteRecord }
+    return {  record, loading2, createRecord, deleteRecord, updateRecord }
 }

@@ -10,11 +10,13 @@ type Record = {
 }
 
 type Props = {    
-    records : Record[] 
-    deleteRecord: (id:any) => Promise<void>
+    records :       Record[] 
+    deleteRecord:   (id:any) => Promise<void>
+    updateRecord:   (record: Record, id :string) => Promise<void>
+    selectedClientId: int | null
 }
 
-export function ClienteDetailsCard({records , deleteRecord}: Props){
+export function ClienteDetailsCard({records , deleteRecord, updateRecord, selectedClientId}: Props){
 
     return (
             <div className="card border-0 shadow-sm rounded-4 overflow-hidden  mb-2">
@@ -22,12 +24,14 @@ export function ClienteDetailsCard({records , deleteRecord}: Props){
 
                     <h6 className="text-uppercase text-muted fw-bold mb-3"
                     style={{ fontSize: '0.75rem' }}>
-                    Detalle de gestiones
+                    Detalle de gestiones 
                     </h6>
 
                     <ClientTable 
-                                Records         =   {records}
-                                deleteRecord    =   {deleteRecord} />
+                                Records         =   { records   }
+                                deleteRecord    =   { deleteRecord  }
+                                updateRecord    =   { updateRecord  } 
+                                selectedClientId    =   {selectedClientId} />
 
                 </div>
             </div>
