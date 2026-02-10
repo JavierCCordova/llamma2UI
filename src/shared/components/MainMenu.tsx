@@ -23,6 +23,13 @@ export function MainMenu() {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto align-items-center">
+            
+            <li className="nav-item px-2">
+              <Link className={activeClass("/agent")} to="/agent">
+                <i className="bi bi-speedometer2 me-1"></i> Agenda
+              </Link>
+            </li>
+
             <li className="nav-item px-2">
               <Link className={activeClass("/")} to="/">
                 <i className="bi bi-speedometer2 me-1"></i> Dashboard

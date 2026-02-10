@@ -4,6 +4,7 @@ import { AuthPage } from '../features/auth/AuthPage'
 import { PrivateLayout } from '../layouts/PrivateLayout'
 import { AuthLayout } from '../layouts/AuthLayout'
 import { ClientPage } from '../features/client/ClientPage'
+import { AgentPage } from '../features/agent/ClientPage'
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
     element: <PrivateLayout />,
     children: [
       { path: '/', element: <div>Dashboard</div> },
+      { path: '/agent', element: <AgentPage /> },
       { path: '/clients', element: <ClientPage/> }
     ]
   }
