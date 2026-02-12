@@ -4,7 +4,7 @@ import { MainMenu } from '../shared/components/MainMenu'
 export function PrivateLayout() {
 
   const token = localStorage.getItem('token');
-
+  console.log("holamundop: ", token)
   if (!token) {
     return <Navigate to="/login" replace />
   }
@@ -20,4 +20,4 @@ export function PrivateLayout() {
    // Este layout se encarga de visualizar los datos estaticos como menu y footer 
    // <MainMenu />   // SIEMPRE visible
    // <Outlet />     // cambia según la ruta
-   // <Footer />     // SIEMPRE visible
+   // <Footer />     // SIEMPRE visible 

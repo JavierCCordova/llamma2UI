@@ -49,7 +49,7 @@ export function ClientPage() {
               records       = { record }
               deleteRecord  = { deleteRecord }
               updateRecord  = { updateRecord }
-              selectedClientId={selectedClientId}
+              selectedClientId  = { selectedClientId  }
         />
 
     </div>

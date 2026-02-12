@@ -20,6 +20,11 @@ export const clientService ={
 
         const res = await fetch("http://localhost:8000/crm/getclient", requestOptions)
 
+        if(res.status == 401){
+                localStorage.removeItem("token")
+                window.location.href    =   "/login?message=expired";
+                return;
+        }
         if(!res.ok){
                 throw new Error(" Problemas obtener Client");
         }
