@@ -12,10 +12,12 @@ export function useAgentViewModel(){
 
     const [ agent, setAgent ]   =   useState<Agent[]>([])
     const [ loading, setLoading]    =   useState(true)
-
-    useEffect(  () => {
-
-        agentService.getAgentPrograming().then( (response) =>{
+    
+    const setCalendar = async(calendar:any)=>{
+        await agentService.setCalendar(calendar)
+    }
+    const getCalendar =async() =>{
+        await agentService.getAgentPrograming().then( (response) =>{
  
         const rawAgent: Agent[] = response.data.map((item: any) => ({
                                                 date: item.date,
@@ -28,6 +30,11 @@ export function useAgentViewModel(){
                 }).catch( () => {
                     setLoading(false)
                 })
+    }
+    
+    useEffect(  () => {
+            getCalendar()
         }, [])
-    return { agent, loading }
+
+    return { agent, loading, setCalendar }
 }
