@@ -27,7 +27,7 @@ export function AgentCalendar({ agent, setCalendar }:Props ){
             cliente: string
         })=> {
             await setCalendar(data)
-            setIsModalOpen(false)
+            handleCloseModal()
     }
  
     const handleOpenModal = () => {

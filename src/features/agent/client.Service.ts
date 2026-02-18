@@ -17,7 +17,7 @@ export const agentService = {
             body : JSON.stringify(calendar)
         }
         const res = await fetch('http://localhost:8000/crm/setCalendar',requestOptions)
-        if(res.ok!){
+        if(!res.ok){
              throw new Error("Problemas a guardar");
         }
         const response    =   await res.json()

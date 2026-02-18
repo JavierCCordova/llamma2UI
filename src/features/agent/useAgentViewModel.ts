@@ -15,6 +15,7 @@ export function useAgentViewModel(){
     
     const setCalendar = async(calendar:any)=>{
         await agentService.setCalendar(calendar)
+        getCalendar()
     }
     const getCalendar =async() =>{
         await agentService.getAgentPrograming().then( (response) =>{
