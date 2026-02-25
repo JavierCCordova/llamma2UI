@@ -31,8 +31,8 @@ export function MainMenu() {
             </li>
 
             <li className="nav-item px-2">
-              <Link className={activeClass("/")} to="/">
-                <i className="bi bi-speedometer2 me-1"></i> Dashboard
+              <Link className={activeClass("/process")} to="/process">
+                <i className="bi bi-speedometer2 me-1"></i> Procesos
               </Link>
             </li>
             <li className="nav-item px-2">
