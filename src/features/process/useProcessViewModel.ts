@@ -1,5 +1,5 @@
 import { processService } from './process.Service' 
-
+import type { OcrResponse } from './viewModel/ocr.types' 
 
 export function useProcessViewMode(){
 
@@ -7,5 +7,8 @@ export function useProcessViewMode(){
         return await processService.getDniRobot(dni)
     }
    
-    return { getDniRobot }
+    const ocrGeminiFile = async (feature: string[], file: File): Promise<OcrResponse> =>{
+        return await processService.ocrGeminiFile(feature, file)
+    }
+    return { getDniRobot, ocrGeminiFile }
 }

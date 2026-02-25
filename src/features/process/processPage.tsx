@@ -1,14 +1,22 @@
 import { useState } from 'react'
 import { useProcessViewMode } from './useProcessViewModel'
 import { NumberInputModal } from './components/processDniRobot'
+import { ExtractDataGemini } from './components/processExtracData'
 
 type ActiveModal = "dni" | "report" | "config" | null;
+
+//interface ExtractDataGeminiProps {
+//  onClose: () => void;
+//  onSubmit: (features: string[], file: File) => void;
+//}
+type GeminiResult = Record<string, string | null>;
 
 export function ProcessPage(){
 
     const [activeModal, setActiveModal] = useState<ActiveModal>(null);
     const [dniResult, setDniResult] = useState<string | null>(null);
-    const { getDniRobot }   =   useProcessViewMode()
+    const [geminiResult, setGeminiResult] = useState<GeminiResult | null>(null);
+    const { getDniRobot, ocrGeminiFile }   =   useProcessViewMode()
 
     const openModal = (modal:ActiveModal) => {
         setActiveModal(modal);
@@ -22,6 +30,11 @@ export function ProcessPage(){
         const response = await getDniRobot(dni)
         setDniResult(response)
         closeModal()
+    }
+
+    const handleGeminiFile = async(feature: string[], file: File) =>{
+        const response = await ocrGeminiFile(feature, file)
+        setGeminiResult(response.data);
     }
 
     return (
@@ -63,10 +76,21 @@ export function ProcessPage(){
             <div className="card h-100 shadow-sm border-0 rounded-4">
                 <div className="card-body d-flex flex-column justify-content-between">
                 <div>
-                    <h5 className="fw-bold">Reportes</h5>
+                    <h5 className="fw-bold">Extract datos</h5>
                     <p className="text-muted small">
-                    Ver reportes de llamadas
+                      Obtener los datos ocr
                     </p>
+                            {geminiResult && (
+                                <div className="row g-3 mt-3">
+                                    {Object.entries(geminiResult)
+                                    .filter(([, value]) => value !== null)  
+                                    .map(([key, value]) => (
+                                        <div className="col-md-6" key={key}>      
+                                            <h6> {key} <span className="badge bg-success ms-2"> {value} </span></h6>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                 </div>
 
                 <button
@@ -126,6 +150,15 @@ export function ProcessPage(){
                         onSubmit= {handleDniSubmit}
             />
         )}
+
+        {/* 🔽 MODAL EXTRACT DATA */}
+        {activeModal === "report" && (
+        <ExtractDataGemini
+            onClose={closeModal}
+            onSubmit={handleGeminiFile}
+        />
+        )}
+
         </div>
     )
 }
