@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useMarketViewModel } from './useMarketViewModel'
+import { MarketOcrImagen } from './components/marketOcrImagen'
 
 export function MarketPage() {
  
@@ -13,9 +14,10 @@ export function MarketPage() {
     };
 
     const onProcessClick = () => {
-    if (selectedFile) {
-      processImage(selectedFile);
-    }
+        console.log("CLICK PROCESAR");
+        if (selectedFile) {
+        processImage(selectedFile);
+        }
   };
 
   return (
@@ -95,7 +97,9 @@ export function MarketPage() {
             </h5>
 
             <div className="flex-grow-1 border border-2 border-secondary-subtle rounded d-flex justify-content-center align-items-center text-muted">
-              Área de contenido para resultados
+                <MarketOcrImagen 
+                  market  = { market } 
+                />
             </div>
 
           </div>
