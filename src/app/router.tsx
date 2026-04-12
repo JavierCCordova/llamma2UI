@@ -6,6 +6,7 @@ import { AuthLayout } from '../layouts/AuthLayout'
 import { ClientPage } from '../features/client/ClientPage'
 import { AgentPage } from '../features/agent/ClientPage'
 import { ProcessPage } from '../features/process/processPage'
+import { MarketPage } from '../features/market/MarketPage'
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +21,8 @@ export const router = createBrowserRouter([
       { path: '/', element: <div> holamundo</div> },
       { path: '/process',  element: <ProcessPage /> },
       { path: '/agent', element: <AgentPage /> },
-      { path: '/clients', element: <ClientPage/> }
+      { path: '/clients', element: <ClientPage/> },
+      { path: '/market', element: <MarketPage/> },
     ]
   }
   //,
