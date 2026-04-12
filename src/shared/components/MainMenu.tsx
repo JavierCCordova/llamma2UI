@@ -25,6 +25,12 @@ export function MainMenu() {
           <ul className="navbar-nav ms-auto align-items-center">
             
             <li className="nav-item px-2">
+              <Link className={activeClass("/market")} to="/market">
+                <i className="bi bi-cart me-1"></i> Mercado
+              </Link>
+            </li>
+
+            <li className="nav-item px-2">
               <Link className={activeClass("/agent")} to="/agent">
                 <i className="bi bi-speedometer2 me-1"></i> Agenda
               </Link>
