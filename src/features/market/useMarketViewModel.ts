@@ -45,5 +45,13 @@ export function useMarketViewModel(){
             setIsLoading(false);
             }
     }
-    return { market, processImage, isLoading, error}
+    const processSaveMarket = async(market:OCRData)=>{
+        console.log("Inicio salvado");
+        const response  = await marketService.setMarketSave(market)
+        console.log(response)
+
+    }
+
+
+    return { market, processImage, isLoading, error, processSaveMarket}
 }

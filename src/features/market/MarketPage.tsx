@@ -5,7 +5,7 @@ import { MarketOcrImagen } from './components/marketOcrImagen'
 export function MarketPage() {
  
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const { market, processImage, isLoading, error } = useMarketViewModel();
+    const { market, processImage, isLoading, error, processSaveMarket } = useMarketViewModel();
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -99,6 +99,7 @@ export function MarketPage() {
             <div className="flex-grow-1 border border-2 border-secondary-subtle rounded d-flex justify-content-center align-items-center text-muted">
                 <MarketOcrImagen 
                   market  = { market } 
+                  processSaveMarket = {processSaveMarket}
                 />
             </div>
 
