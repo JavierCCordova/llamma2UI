@@ -82,10 +82,10 @@ export function MarketOcrImagen( { market ,processSaveMarket }:Props ){
             const payload = {
                 fecha_captura: new Date().toISOString(),
                 items: sanitizedItems,
-                metadatos_totales: {
+                totales: {
                     total_validado: Number(totalValidado.toFixed(2)),
                     total_original_ocr: market?.data?.metadatos?.suma_total_precios || 0,
-                    conteo_items: sanitizedItems.length
+                    conteo_final: sanitizedItems.length
                 }
             };
  
