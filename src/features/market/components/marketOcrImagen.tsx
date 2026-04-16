@@ -24,10 +24,11 @@ export type OCRResponse = {
 };
 
 type Props = {
-    market?: OCRResponse
+    market?: OCRResponse,
+    processSaveMarket : ( payload: any) => Promise<void>
 }
 
-export function MarketOcrImagen( { market }:Props ){
+export function MarketOcrImagen( { market ,processSaveMarket }:Props ){
 
     const [editableCompras, setEditableCompras] = useState<Compra[]>([]);
  
@@ -66,17 +67,32 @@ export function MarketOcrImagen( { market }:Props ){
     const removeProduct = (index: number) => {
         setEditableCompras(prev => prev.filter((_, i) => i !== index));
     };
-     const handleSave = () => {
-        const sanitizedData = editableCompras.map(item => ({
-        ...item,
-        cantidad: Number(item.cantidad) || 0,
-        precio_unitario: Number(item.precio_unitario) || 0,
-        precio_total_linea: Number(item.precio_total_linea) || 0,
-        producto: item.producto.trim() || "Producto sin nombre"
-        }));
-        
-        //if (onSave) onSave(sanitizedData);
-    };
+
+        const handleSave = () => { 
+            const sanitizedItems = editableCompras.map(item => ({
+                producto: item.producto.trim() || "Producto sin nombre",
+                cantidad: Number(item.cantidad) || 0,
+                unidad: item.unidad || "unidad",
+                precio_unitario: Number(item.precio_unitario) || 0,
+                subtotal: Number(item.precio_total_linea) || 0  
+            }));
+ 
+            const totalValidado = sanitizedItems.reduce((acc, curr) => acc + curr.subtotal, 0);
+ 
+            const payload = {
+                fecha_captura: new Date().toISOString(),
+                items: sanitizedItems,
+                totales: {
+                    total_validado: Number(totalValidado.toFixed(2)),
+                    total_original_ocr: market?.data?.metadatos?.suma_total_precios || 0,
+                    conteo_final: sanitizedItems.length
+                }
+            };
+ 
+            if (sanitizedItems.length > 0) {
+                processSaveMarket(payload);
+            }
+        };
 
     if (!market) {
         return (

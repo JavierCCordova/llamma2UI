@@ -5,7 +5,7 @@ import { MarketOcrImagen } from './components/marketOcrImagen'
 export function MarketPage() {
  
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const { market, processImage, isLoading, error } = useMarketViewModel();
+    const { market, processImage, isLoading, error, processSaveMarket } = useMarketViewModel();
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -80,7 +80,12 @@ export function MarketPage() {
             </h5>
 
             <div className="flex-grow-1 border border-2 border-secondary-subtle rounded d-flex justify-content-center align-items-center text-muted">
-              Área de contenido para análisis
+                <iframe width="600" height="443" src="https://datastudio.google.com/embed/reporting/b7e6be7a-b5a2-4628-9a67-9b205218c200/page/BKMvF" 
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+>
+                </iframe>
             </div>
 
           </div>
@@ -99,6 +104,7 @@ export function MarketPage() {
             <div className="flex-grow-1 border border-2 border-secondary-subtle rounded d-flex justify-content-center align-items-center text-muted">
                 <MarketOcrImagen 
                   market  = { market } 
+                  processSaveMarket = {processSaveMarket}
                 />
             </div>
 

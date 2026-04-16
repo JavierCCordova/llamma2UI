@@ -27,6 +27,36 @@ export const marketService = {
         const response =    await res.json()
         return response
 
+    },
+
+
+    async setMarketSave(market: any){
+
+        const token  = localStorage.getItem('token')
+        const userId = localStorage.getItem('userId')
+
+        market.usuario_id = userId;
+
+        if(!token){
+            throw new Error("No auth token")
+        }
+
+        const requestOptions = {
+            method : "POST",
+            headers: {
+                 'Accept': 'application/json',
+                 "Content-Type": "application/json", 
+                 'Authorization': `Bearer ${token}`
+            },
+            body : JSON.stringify(market)
+        }
+
+        const res   =   await fetch('http://localhost:8000/Robot/robot/ocrMercadoSave',requestOptions)
+        if(!res.ok){
+            throw new Error("Problemas a guardar");
+        }
+        const response  =   await res.json()
+        return response
     }
 
 
